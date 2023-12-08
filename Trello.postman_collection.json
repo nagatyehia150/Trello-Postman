@@ -1,0 +1,627 @@
+{
+	"info": {
+		"_postman_id": "ff9ef02c-66e2-407f-a1cd-7e13e4e83f5a",
+		"name": "Trello",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30339000",
+		"_collection_link": "https://cloudy-spaceship-744845.postman.co/workspace/My-Workspace~c3a86a8f-357b-43f6-9768-c9c1549faf10/collection/30339000-ff9ef02c-66e2-407f-a1cd-7e13e4e83f5a?action=share&source=collection_link&creator=30339000"
+	},
+	"item": [
+		{
+			"name": "Create a new board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Board should be created\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"New Board\");\r",
+							"});\r",
+							"\r",
+							"let response=pm.response.json();\r",
+							"pm.globals.set(\"boardID\",response.id);\r",
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"followOriginalHttpMethod": true,
+				"followRedirects": true,
+				"followAuthorizationHeader": false,
+				"maxRedirects": 12
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/1/boards?key={{key}}&name=New Board&token={{token}}&defaultLists=false",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "name",
+							"value": "New Board"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "defaultLists",
+							"value": "false"
+						}
+					]
+				},
+				"description": "\nThis API endpoint is used to create a new Trello board. It makes an HTTP POST request to the specified URL with the required parameters in the query string.\n\nThe request URL is `{{base_url}}/1/boards?key={{key}}&name=Trello Board&token={{token}}&defaultLists=false`.\n\nThe response of the last execution had a status code of 200, indicating a successful request. The response body contains information about the newly created board, including its ID, name, description, and various preferences.\n\nHere are some of the key properties in the response:\n\n- `id`: The unique identifier of the board.\n- `name`: The name of the board.\n- `desc`: The description of the board.\n- `closed`: A boolean value indicating whether the board is closed or not.\n- `url`: The URL of the board.\n- `shortUrl`: The shortened URL of the board.\n- `prefs`: An object containing various preferences for the board, such as permission level, voting settings, and background settings.\n- `labelNames`: An object containing the names of different labels used in the board.\n- `limits`: An object containing any limits set for the board.\n\nPlease note that the actual values for the properties in the response may vary depending on the specific request and the user's settings.\n\nTo create a new board, make an HTTP POST request to the specified URL with the required parameters in the query string. The `key` and `token` parameters are used for authentication. The `name` parameter is used to specify the name of the board. The `defaultLists` parameter is optional and can be used to specify whether the board should have default lists or not.\n\nExample Request:\n```\nPOST {{base_url}}/1/boards?key={{key}}&name=Trello Board&token={{token}}&defaultLists=false\n```\n\nExample Response:\n```\nStatus: 200\n{\n  \"id\": \"\",\n  \"name\": \"\",\n  \"desc\": \"\",\n  \"descData\": null,\n  \"closed\": true,\n  \"idOrganization\": \"\",\n  \"idEnterprise\": null,\n  \"pinned\": true,\n  \"url\": \"\",\n  \"shortUrl\": \"\",\n  \"prefs\": {\n    \"permissionLevel\": \"\",\n    \"hideVotes\": true,\n    \"voting\": \"\",\n    \"comments\": \"\",\n    \"invitations\": \"\",\n    \"selfJoin\": true,\n    \"cardCovers\": true,\n    \"isTemplate\": true,\n    \"cardAging\": \"\",\n    \"calendarFeedEnabled\": true,\n    \"hiddenPluginBoardButtons\": [],\n    \"switcherViews\": [\n      {\n        \"viewType\": \"\",\n        \"enabled\": true\n      }\n    ],\n    \"background\": \"\",\n    \"backgroundColor\": \"\",\n    \"backgroundImage\": null,\n    \"backgroundImageScaled\": null,\n    \"backgroundTile\": true,\n    \"backgroundBrightness\": \"\",\n    \"backgroundBottomColor\": \"\",\n    \"backgroundTopColor\": \"\",\n    \"canBePublic\": true,\n    \"canBeEnterprise\": true,\n    \"canBeOrg\": true,\n    \"canBePrivate\": true,\n    \"canInvite\": true\n  },\n  \"labelNames\": {\n    \"green\": \"\",\n    \"yellow\": \"\",\n    \"orange\": \"\",\n    \"red\": \"\",\n    \"purple\": \"\",\n    \"blue\": \"\",\n    \"sky\": \"\",\n    \"lime\": \"\",\n    \"pink\": \"\",\n    \"black\": \"\",\n    \"green_dark\": \"\",\n    \"yellow_dark\": \"\",\n    \"orange_dark\": \"\",\n    \"red_dark\": \"\",\n    \"purple_dark\": \"\",\n    \"blue_dark\": \"\",\n    \"sky_dark\": \"\",\n    \"lime_dark\": \"\",\n    \"pink_dark\": \"\",\n    \"black_dark\": \"\",\n    \"green_light\": \"\",\n    \"yellow_light\": \"\",\n    \"orange_light\": \"\",\n    \"red_light\": \"\",\n    \"purple_light\": \"\",\n    \"blue_light\": \"\",\n    \"sky_light\": \"\",\n    \"lime_light\": \"\",\n    \"pink_light\": \"\",\n    \"black_light\": \"\"\n  },\n  \"limits\": {}\n}\n```\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Update board name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct Board name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"myBoard\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/boards/{{boardID}}?key={{key}}&token={{token}}&name=myBoard",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{boardID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "name",
+							"value": "myBoard"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct Board name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"myBoard\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/boards/{{boardID}}?key={{key}}&token={{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{boardID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a list on a board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response=pm.response.json();\r",
+							"pm.globals.set(\"list_Id\",response.id);\r",
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"});\r",
+							"pm.test(\"correct list name\", ()=> {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"First List\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/lists?name=First List&idBoard={{boardID}}&key={{key}}&token={{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "First List"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{boardID}}"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"correct list name\", ()=> {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"First List\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/lists/{{list_Id}}?key={{key}}&token={{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{list_Id}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update list name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct list name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"New List\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/lists/{{list_Id}}?key={{key}}&token={{token}}&name=New List",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{list_Id}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "name",
+							"value": "New List"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a card on the list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response=pm.response.json();\r",
+							"pm.globals.set(\"card_Id\",response.id);\r",
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"});\r",
+							"\r",
+							"pm.test(\"correct card name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"My Card\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/cards?idList={{list_Id}}&key={{key}}&token={{token}}&name=My Card",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{list_Id}}"
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "name",
+							"value": "My Card"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cards in a List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct card name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"My Card\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/lists/{{list_Id}}/cards?key={{key}}&token={{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{list_Id}}",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update card name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"correct card name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"new card\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/cards/{{card_Id}}?key={{key}}&token={{token}}&name=new card",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"cards",
+						"{{card_Id}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "name",
+							"value": "new card"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/1/boards/{{boardID}}?key={{key}}&token={{token}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{boardID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Response time is less than 3000ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+					"});",
+					"pm.test(\"Content-Type header is present\", () => {",
+					"  pm.response.to.have.header(\"Content-Type\");",
+					"});",
+					"pm.test(\"Content-Type header is application/json\", () => {",
+					"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+					"});",
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					""
+				]
+			}
+		}
+	]
+}
